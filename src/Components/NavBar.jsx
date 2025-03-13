@@ -39,43 +39,46 @@ const Navbar = () => {
       {/* Fixed navbar */}
       <header className={`w-full fixed ${isScrolled ? 'top-0' : 'top-[36px]'} left-0 z-[90] shadow-md transition-all duration-300`}>
         {/* Main navbar container with background */}
-        <nav className="w-full px-4 sm:px-6 py-1 flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12">
-          {/* Mobile menu button - moved to the left */}
-          <div className="md:hidden">
-            <button
-              className="text-black focus:outline-none z-[110] relative transition-transform duration-300 hover:scale-110"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Toggle menu"
-            >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+        <nav className="w-full px-4 sm:px-6 py-1 flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12 relative">
+          {/* Left section: Mobile menu button or Desktop nav links */}
+          <div className="w-1/3 flex justify-start">
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <button
+                className="text-black focus:outline-none z-[110] relative transition-transform duration-300 hover:scale-110"
+                onClick={() => setMenuOpen(!menuOpen)}
+                aria-label="Toggle menu"
+              >
+                {menuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
+
+            {/* Desktop menu links */}
+            <div className="hidden md:flex gap-10 font-semibold tracking-wide uppercase text-lg">
+              <a 
+                href="#about-us" 
+                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
+              >
+                About Us
+              </a>
+              <a 
+                href="#amenities" 
+                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
+              >
+                Amenities
+              </a>
+              <a 
+                href="#events" 
+                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
+              >
+                Events
+              </a>
+            </div>
           </div>
 
-          {/* Desktop menu links */}
-          <div className="hidden md:flex gap-10 font-semibold tracking-wide uppercase text-lg">
-            <a 
-              href="#about-us" 
-              className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-            >
-              About Us
-            </a>
-            <a 
-              href="#amenities" 
-              className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-            >
-              Amenities
-            </a>
-            <a 
-              href="#events" 
-              className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-            >
-              Events
-            </a>
-          </div>
-
-          {/* Logo - centered for all screen sizes */}
-          <div className="flex justify-center">
-            <a href="#ab">
+          {/* Middle section: Logo centered for all screen sizes */}
+          <div className="w-1/3 flex justify-center items-center">
+            <a href="#hero">
               <img
                 src={logoText}
                 alt="Banana Sports"
@@ -84,23 +87,24 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Contact and social icons */}
-          <div className="hidden md:flex items-center gap-5">
-            <a href="#contact" className="bg-[#FFD900] px-6 py-3 font-bold text-black uppercase tracking-wide rounded-full shadow-lg transition-all duration-300 hover:bg-[#F8F8F5] hover:shadow-lg hover:scale-110">
-              Contact Us
-            </a>
-            <div className="flex gap-6">
-              <a href="https://www.instagram.com/bananasportsblr" target="_blank" rel="noopener noreferrer">
-                <img src={instagram} alt="Instagram" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-70 contrast-125" />
+          {/* Right section: Empty space on mobile, Contact and social icons on desktop */}
+          <div className="w-1/3 flex justify-end">
+            <div className="hidden md:flex items-center gap-5">
+              <a href="#contact" className="bg-[#FFD900] px-6 py-3 font-bold text-black uppercase tracking-wide rounded-full shadow-lg transition-all duration-300 hover:bg-[#F8F8F5] hover:shadow-lg hover:scale-110">
+                Contact Us
               </a>
-              <a href="https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ" target="_blank" rel="noopener noreferrer">
-                <img src={whatsapp} alt="WhatsApp" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-60 contrast-125" />
-              </a>
+              <div className="flex gap-6">
+                <a href="https://www.instagram.com/bananasportsblr" target="_blank" rel="noopener noreferrer">
+                  <img src={instagram} alt="Instagram" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-70 contrast-125" />
+                </a>
+                <a href="https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ" target="_blank" rel="noopener noreferrer">
+                  <img src={whatsapp} alt="WhatsApp" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-60 contrast-125" />
+                </a>
+              </div>
             </div>
+            {/* Empty div to maintain layout on mobile */}
+            <div className="md:hidden w-8"></div>
           </div>
-          
-          {/* Empty div to balance the layout on mobile */}
-          <div className="md:hidden w-8"></div>
         </nav>
       </header>
       

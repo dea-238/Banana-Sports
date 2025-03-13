@@ -32,7 +32,7 @@ const Hero = ({ id }) => {
       {/* Invisible anchor point */}
       <div id={id} style={{ position: "relative", top: "-120px", visibility: "hidden", height: 0 }} />
       
-      <section className="relative h-[85vh] flex items-center justify-start px-4 sm:px-6 md:px-8 lg:px-12">
+      <section className="relative h-[85vh] flex items-center justify-start px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0">
           {highlightsSlides.map((slide, index) => (
@@ -53,7 +53,7 @@ const Hero = ({ id }) => {
 
         {/* Content */}
         <div className="relative z-10 text-white max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
-          <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-left leading-tight">
+          <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-left leading-tight font-Anton">
             PICKLEBALL!
             <br />
             FOOTBALL!

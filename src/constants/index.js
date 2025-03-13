@@ -34,8 +34,8 @@
   export const roadmap = [
     {
       id: "0",
-      title: "Café Experience",
-      text: "Relax with snacks and drinks in our cozy café.",
+      title: "Café and Chill Out Area",
+      text: "Relax with snacks and drinks, socialize, take a break during training sesssions.",
       date: "May 2023",
       status: "done",
       imageUrl: "/images/cafe.jpg",
@@ -48,14 +48,6 @@
       date: "May 2023",
       status: "progress",
       imageUrl: "/images/merch.jpg",
-    },
-    {
-      id: "2",
-      title: "Chill Out Area",
-      text: "A shaded space to relax and watch games.",
-      date: "May 2023",
-      status: "done",
-      imageUrl: "/images/chill.jpg",
     },
     {
       id: "3",
@@ -107,6 +99,19 @@
       videoDuration: 5,
     },
   ];
+export const images = [
+    "/images/e.jpg",
+    "/images/e1.jpg",
+    "/images/e2.jpg",
+    "/images/e3.jpg",
+    "/images/e4.jpg",
+    "/images/e5.jpg",
+    "/images/e6.jpg",
+    "/images/e7.jpg",
+    "/images/e8.jpg",
+    "/images/e9.jpg",
+    "/images/e10.jpg",
+  ];
   
 export const reviews = [
   {
@@ -118,7 +123,7 @@ export const reviews = [
   },
   {
     id: 2,
-    text: "The facilities here are top-notch, and the staff is always friendly and helpful. Highly recommended!",
+    text: "The facilities here are top-notch, and the staff is always friendly and helpful!",
     author: "Diana Prince",
     role: "Fitness Enthusiast",
     image: "/images/p2.jpeg",
@@ -129,6 +134,13 @@ export const reviews = [
     author: "Clark Kent",
     role: "Gym Member",
     image: "/images/p3.jpeg",
+  },
+  {
+    id: 3,
+    text: "Love the sport, Love the courts, Overall Great Vibes.",
+    author: "Tony Stark",
+    role: "Tennis Player",
+    image: "/images/p4.jpeg",
   },
 ];
 
