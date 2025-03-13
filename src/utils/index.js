@@ -8,11 +8,7 @@ import phn from "/images/phone.svg"
 import mail from "/images/email.svg"
 import court1 from "/images/court1.jpg"
 import court2 from "/images/court2.jpg"
-import watch from "/images/watch.svg";
 import right from "/images/right.svg";
-import replay from "/images/replay.svg";
-import play from "/images/play.svg";
-import pause from "/images/pause.svg";
 import highlightFirstmv from "/videos/court.mp4";
 import highlightSectmv from "/videos/merch.mp4";
 import highlightThirdmv from "/videos/h1.mp4";
@@ -27,11 +23,7 @@ export const phone = phn;
 export const email = mail;
 export const hero1 = court1;
 export const hero2 = court2;
-export const watchImg = watch;
 export const rightImg = right;
-export const replayImg = replay;
-export const playImg = play;
-export const pauseImg = pause;
 export const heroVideo = hmv;
 export const smallHeroVideo= smallmv;
 export const highlightFirstVideo = highlightFirstmv;
