@@ -2,48 +2,68 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const AboutUs = ({ id }) => {
+  const marqueeRef = useRef(null);
   const underlayRef = useRef(null);
 
   useEffect(() => {
-    gsap.to(underlayRef.current, {
-      x: "-50%",
-      repeat: -1,
-      duration: 20,
-      ease: "linear",
-      repeatRefresh: false
-    });
+    const marqueeContent = underlayRef.current;
+    const setupMarquee = () => {
+      gsap.killTweensOf(marqueeContent);
+      gsap.set(marqueeContent, { x: 0 });
+
+      const contentWidth = marqueeContent.offsetWidth / 2;
+      
+      gsap.to(marqueeContent, {
+        x: `-${contentWidth}px`,
+        duration: 20,
+        ease: "linear",
+        repeat: -1,
+        repeatRefresh: true
+      });
+    };
+    
+    setupMarquee();
+    
+    // Handle window resize to keep the animation smooth
+    window.addEventListener('resize', setupMarquee);
+    
+    return () => {
+      window.removeEventListener('resize', setupMarquee);
+      gsap.killTweensOf(marqueeContent);
+    };
   }, []);
 
   return (
     <>
       <div id={id} style={{ position: "relative", top: "-120px", visibility: "hidden", height: 0 }} />     
-      <div className="max-w-4xl mx-auto text-center pt-40 pb-40 px-4 sm:px-8 md:px-14">
-        <p className="text-2xl sm:text-xl leading-relaxed text-black">
-          Bangalore's Premium Facility for {" "}<br></br>
-          <span className="text-yellow-400  text-3xl font-semibold">
+      <div className="max-w-4xl mx-auto text-center pt-16 sm:pt-24 md:pt-32 lg:pt-40 pb-16 sm:pb-24 md:pb-32 lg:pb-40 px-4 sm:px-8 md:px-14">
+        <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-black">
+          Bangalore's Premium Facility for
+          <span className="block mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-yellow-400">
             Pickleball, Football, and Box-Cricket.
           </span>
         </p>
       </div>
-      <section 
-        className="relative bg-gradient-to-b from-black via-gray-900 to-black text-white overflow-hidden flex items-center justify-center py-6 sm:py-8 px-4 sm:px-8 md:px-12">
-        <div className="absolute inset-0 flex justify-center overflow-hidden">
+      <div 
+        className="relative bg-gradient-to-b from-black via-gray-900 to-black h-12 sm:h-14 md:h-16 overflow-hidden">
+        <div 
+          ref={marqueeRef}
+          className="absolute inset-0 flex items-center"
+          style={{ width: "100%" }}>
           <div 
-            className="absolute inset-0 flex items-center"
-            style={{ paddingBottom: "0", paddingTop: "8px" }}>
-            <div
-              ref={underlayRef}
-              className="text-[6vw] sm:text-[4.5vw] font-bold font-thunder text-yellow-500 opacity-80 whitespace-nowrap"
-              style={{ 
-                width: "200%", 
-                lineHeight: "1",
-                color: "#FFD700" // Bright gold/yellow color
-              }}>
-              BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS!
-            </div>
+            ref={underlayRef}
+            className="font-bold font-thunder whitespace-nowrap opacity-80 flex items-center"
+            style={{ 
+              width: "200%",
+              color: "#FFD700", 
+              fontSize: "min(4vw, 2.5rem)",
+              lineHeight: 1,
+              paddingTop: "0.1em" 
+            }}>
+            BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS! BANANAS FOR SPORTS!
           </div>
         </div>
-      </section>
+      </div>
     </>
   );
 };

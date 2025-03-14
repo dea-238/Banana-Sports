@@ -1,102 +1,72 @@
 import { useEffect, useRef } from "react";
 
-const AnnouncementBar = ({id}) => {
+const AnnouncementBar = ({ id, text = "NEW EXCITING OFFERS COMING SOON!" }) => {
   const textRef = useRef(null);
   const containerRef = useRef(null);
   const animationRef = useRef(null);
 
   useEffect(() => {
-    const initializeBar = () => {
+    const initializeAnimation = () => {
       if (!containerRef.current || !textRef.current) return;
 
       const container = containerRef.current;
-      const text = textRef.current;
+      const textElement = textRef.current;
 
-      const animateText = () => {
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+
+      const containerWidth = container.offsetWidth;
+      const textWidth = textElement.getBoundingClientRect().width;
+
+      if (containerWidth <= 0 || textWidth <= 0) {
+        setTimeout(initializeAnimation, 100);
+        return;
+      }
+
+      let position = containerWidth;
+      textElement.style.transform = `translateX(${position}px)`;
+
+      const speed = 2.5;
+
+      const animate = () => {
+        position -= speed;
+        if (position < -textWidth) {
+          position = containerWidth;
         }
-
-        const containerWidth = container.offsetWidth || window.innerWidth;
-        const textWidth = text.offsetWidth || text.getBoundingClientRect().width;
-
-        if (containerWidth <= 0 || textWidth <= 0) {
-          setTimeout(animateText, 100);
-          return;
-        }
-
-        let position = containerWidth;
-        text.style.transform = `translateX(${position}px)`;
-
-        const speed = 2.5;
-
-        const animate = () => {
-          position -= speed;
-          if (position < -textWidth) {
-            position = containerWidth;
-          }
-          text.style.transform = `translateX(${position}px)`;
-          animationRef.current = requestAnimationFrame(animate);
-        };
-
-        animate();
+        textElement.style.transform = `translateX(${position}px)`;
+        animationRef.current = requestAnimationFrame(animate);
       };
 
-      animateText();
+      animate();
     };
 
-    initializeBar();
-
-    const handleResize = () => {
-      initializeBar();
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
+    initializeAnimation();
+    window.addEventListener("resize", initializeAnimation);
+    window.addEventListener("orientationchange", initializeAnimation);
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
+      window.removeEventListener("resize", initializeAnimation);
+      window.removeEventListener("orientationchange", initializeAnimation);
     };
   }, []);
 
   return (
-    <div id={id}
+    <div 
+      id={id}
       ref={containerRef}
-      style={{
-        width: "100%",
-        backgroundColor: '#101511',
-        height: "36px",
-        overflow: "hidden",
-        position: "absolute",
-        top: "0px", // Scrolls with the page
-        left: 0,
-        zIndex: 1000, // Ensures it's above other content
-        display: "flex",
-        alignItems: "center",
-      }}
+      className="w-full bg-[#101511] h-9 overflow-hidden absolute top-0 left-0 z-[1000] flex items-center"
     >
       <p
         ref={textRef}
-        style={{
-          color: "#F8F8F5",
-          fontSize: "14px",
-          fontFamily: "'Aldi', sans-serif",
-          whiteSpace: "nowrap",
-          letterSpacing: "0.05em",
-          margin: 0,
-          padding: 0,
-          position: "absolute",
-          willChange: "transform",
-        }}
+        className="text-[#F8F8F5] text-sm font-['Aldi',sans-serif] whitespace-nowrap tracking-wider m-0 p-0 absolute will-change-transform"
       >
-        NEW EXCITING OFFERS COMING SOON!
+        {text}
       </p>
     </div>
   );
 };
-
 export default AnnouncementBar;

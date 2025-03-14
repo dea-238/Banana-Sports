@@ -1,13 +1,10 @@
-import { instagram, logoText, whatsapp } from "../utils";
+import { instagram, BSLOGO, whatsapp } from "../utils";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 0
-  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +12,6 @@ const Navbar = () => {
     };
 
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
       if (window.innerWidth >= 768 && menuOpen) {
         setMenuOpen(false);
       }
@@ -30,15 +26,23 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
+  const navLinks = [
+    { href: "#about-us", label: "About Us" },
+    { href: "#amenities", label: "Amenities" },
+    { href: "#events", label: "Events" },
+  ];
+
+  const socialLinks = [
+    { href: "https://www.instagram.com/bananasportsblr", img: instagram, alt: "Instagram" },
+    { href: "https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ", img: whatsapp, alt: "WhatsApp" },
+  ];
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <>
-      {/* Fixed navbar */}
       <header className={`w-full fixed ${isScrolled ? 'top-0' : 'top-[36px]'} left-0 z-[90] shadow-md transition-all duration-300`}>
-        {/* Main navbar container with background */}
+        {/* Main navbar container */}
         <nav className="w-full px-4 sm:px-6 py-1 flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12 relative">
           {/* Left section: Mobile menu button or Desktop nav links */}
           <div className="w-1/3 flex justify-start">
@@ -55,51 +59,45 @@ const Navbar = () => {
 
             {/* Desktop menu links */}
             <div className="hidden md:flex gap-10 font-semibold tracking-wide uppercase text-lg">
-              <a 
-                href="#about-us" 
-                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-              >
-                About Us
-              </a>
-              <a 
-                href="#amenities" 
-                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-              >
-                Amenities
-              </a>
-              <a 
-                href="#events" 
-                className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
-              >
-                Events
-              </a>
+              {navLinks.map(link => (
+                <a 
+                  key={link.href}
+                  href={link.href} 
+                  className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
+                >
+                  {link.label}
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Middle section: Logo centered for all screen sizes */}
+          {/* Middle section: Logo */}
           <div className="w-1/3 flex justify-center items-center">
             <a href="#hero">
               <img
-                src={logoText}
+                src={BSLOGO}
                 alt="Banana Sports"
                 className="h-16 cursor-pointer transition-transform duration-300 hover:scale-105"
               />
             </a>
           </div>
 
-          {/* Right section: Empty space on mobile, Contact and social icons on desktop */}
+          {/* Right section: Contact and social icons */}
           <div className="w-1/3 flex justify-end">
             <div className="hidden md:flex items-center gap-5">
               <a href="#contact" className="bg-[#FFD900] px-6 py-3 font-bold text-black uppercase tracking-wide rounded-full shadow-lg transition-all duration-300 hover:bg-[#F8F8F5] hover:shadow-lg hover:scale-110">
                 Contact Us
               </a>
               <div className="flex gap-6">
-                <a href="https://www.instagram.com/bananasportsblr" target="_blank" rel="noopener noreferrer">
-                  <img src={instagram} alt="Instagram" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-70 contrast-125" />
-                </a>
-                <a href="https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ" target="_blank" rel="noopener noreferrer">
-                  <img src={whatsapp} alt="WhatsApp" className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-60 contrast-125" />
-                </a>
+                {socialLinks.map(link => (
+                  <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
+                    <img 
+                      src={link.img} 
+                      alt={link.alt} 
+                      className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-70 contrast-125" 
+                    />
+                  </a>
+                ))}
               </div>
             </div>
             {/* Empty div to maintain layout on mobile */}
@@ -108,7 +106,7 @@ const Navbar = () => {
         </nav>
       </header>
       
-      {/* Mobile menu - overlay */}
+      {/* Mobile menu overlay */}
       <div 
         className={`fixed inset-0 bg-black bg-opacity-50 z-[95] transition-opacity duration-300 ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
@@ -116,7 +114,7 @@ const Navbar = () => {
         onClick={closeMenu}
       ></div>
 
-      {/* Mobile menu - slide out panel - Fixed positioning issues */}
+      {/* Mobile menu slide out panel */}
       <div 
         className={`fixed top-0 left-0 h-full w-[85%] max-w-xs bg-[#F0F0EA] bg-opacity-95 z-[100] shadow-xl transform transition-transform duration-300 ease-in-out ${
           menuOpen ? 'translate-x-0' : '-translate-x-full'
@@ -125,7 +123,7 @@ const Navbar = () => {
         {/* Safe area for top of mobile devices */}
         <div className="h-8 bg-[#F0F0EA]"></div>
         
-        {/* Menu header with logo and close button - fixed positioning */}
+        {/* Menu header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-300">
           <button
             className="text-black focus:outline-none p-2"
@@ -135,39 +133,24 @@ const Navbar = () => {
             <X size={24} />
           </button>
           <div>
-            <img
-              src={logoText}
-              alt="Banana Sports"
-              className="h-10"
-            />
+            <img src={BSLOGO} alt="Banana Sports" className="h-10" />
           </div>
         </div>
 
-        {/* Menu items - with consistent spacing */}
+        {/* Menu items */}
         <div className="flex flex-col px-6 pt-8">
-          <a 
-            href="#about-us" 
-            className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
-            onClick={closeMenu}
-          >
-            ABOUT US
-          </a>
-          <a 
-            href="#amenities" 
-            className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
-            onClick={closeMenu}
-          >
-            AMENITIES
-          </a>
-          <a 
-            href="#events" 
-            className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
-            onClick={closeMenu}
-          >
-            EVENTS
-          </a>
+          {navLinks.map(link => (
+            <a 
+              key={link.href}
+              href={link.href} 
+              className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
+              onClick={closeMenu}
+            >
+              {link.label.toUpperCase ? link.label.toUpperCase() : link.label}
+            </a>
+          ))}
           
-          {/* Contact Us button - increased spacing and fixed width */}
+          {/* Contact Us button */}
           <div className="mt-10 mb-8 w-full px-4">
             <a 
               href="#contact" 
@@ -178,19 +161,22 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Social media links in mobile menu - centered and responsive */}
+          {/* Social media links */}
           <div className="flex justify-center gap-8 mb-10">
-            <a href="https://www.instagram.com/bananasportsblr" target="_blank" rel="noopener noreferrer">
-              <img src={instagram} alt="Instagram" className="h-10 w-10 transition-transform duration-300 hover:scale-110" />
-            </a>
-            <a href="https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ" target="_blank" rel="noopener noreferrer">
-              <img src={whatsapp} alt="WhatsApp" className="h-10 w-10 transition-transform duration-300 hover:scale-110" />
-            </a>
+            {socialLinks.map(link => (
+              <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
+                <img 
+                  src={link.img} 
+                  alt={link.alt} 
+                  className="h-10 w-10 transition-transform duration-300 hover:scale-110" 
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>
       
-      {/* Empty div to push content below fixed navbar and announcement bar */}
+      {/* Empty div to push content below fixed navbar */}
       <div className={`${isScrolled ? 'h-[68px]' : 'h-[104px]'} transition-all duration-300`}></div>
     </>
   );
