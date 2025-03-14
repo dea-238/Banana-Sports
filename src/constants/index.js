@@ -23,7 +23,7 @@ export const navLinks = [
 ];
 export const socialLinks = [
   { href: "https://www.instagram.com/bananasportsblr", img: instagram, alt: "Instagram" },
-  { href: "https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZhttps://api.whatsapp.com/send?phone=5860", img: whatsapp, alt: "WhatsApp" },
+  { href: "https://wa.me/7204321935", img: whatsapp, alt: "WhatsApp" },
 ];
 
 // HERO SECTION
