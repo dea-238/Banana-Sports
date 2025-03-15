@@ -6,13 +6,11 @@ import { AMENITIES } from '../constants';
 const Amenities = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
-  const headerHeight = 104; // Your header height
+  const headerHeight = 104; 
 
-  // Single, unified scroll handler for all navigation scenarios
   useEffect(() => {
     const scrollToSection = () => {
       if (headingRef.current && window.location.hash === '#amenities') {
-        // Add a small delay to ensure DOM is fully rendered
         setTimeout(() => {
           const yPosition = 
             headingRef.current.getBoundingClientRect().top + 
@@ -27,32 +25,26 @@ const Amenities = () => {
       }
     };
 
-    // Handle both direct URL access and navigation changes
     scrollToSection();
     window.addEventListener('hashchange', scrollToSection);
     
-    // Handle clicks on navbar links targeting this section
     const handleNavLinkClick = (e) => {
       const href = e.target.getAttribute('href');
       
       if (href === '#amenities') {
         e.preventDefault();
         
-        // Update URL without default jump
         window.history.pushState(null, '', '#amenities');
-        
-        // Use our unified scroll function
+
         scrollToSection();
       }
     };
 
-    // Add click handlers to all relevant navbar links
     const navLinks = document.querySelectorAll('a[href="#amenities"]');
     navLinks.forEach(link => {
       link.addEventListener('click', handleNavLinkClick);
     });
-    
-    // Clean up all event listeners
+
     return () => {
       window.removeEventListener('hashchange', scrollToSection);
       navLinks.forEach(link => {
@@ -126,7 +118,6 @@ const Amenities = () => {
             </p>
           </div>
         </motion.div>
-
         <motion.div
           variants={itemVariants}
           className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-2 border-yellow outline outline-2 outline-yellow">
@@ -156,5 +147,4 @@ const Amenities = () => {
     </section>
   );
 };
-
 export default Amenities;

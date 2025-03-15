@@ -1,6 +1,7 @@
 import { instagram, BSLOGO, whatsapp } from "../utils";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { navLinks, socialLinks } from "../constants";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -26,17 +27,6 @@ const Navbar = () => {
     };
   }, [menuOpen]);
 
-  const navLinks = [
-    { href: "#about-us", label: "About Us" },
-    { href: "#amenities", label: "Amenities" },
-    { href: "#events", label: "Events" },
-  ];
-
-  const socialLinks = [
-    { href: "https://www.instagram.com/bananasportsblr", img: instagram, alt: "Instagram" },
-    { href: "https://chat.whatsapp.com/IrHmXRniyOi5AZ86u0yimZ", img: whatsapp, alt: "WhatsApp" },
-  ];
-
   const closeMenu = () => setMenuOpen(false);
 
   return (
@@ -59,13 +49,13 @@ const Navbar = () => {
 
             {/* Desktop menu links */}
             <div className="hidden md:flex gap-10 font-semibold tracking-wide uppercase text-lg">
-              {navLinks.map(link => (
-                <a 
-                  key={link.href}
-                  href={link.href} 
+              {navLinks.map((link) => (
+                <a
+                  key={link.id} 
+                  href={`#${link.id}`}
                   className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
                 >
-                  {link.label}
+                  {link.name}
                 </a>
               ))}
             </div>
@@ -89,7 +79,7 @@ const Navbar = () => {
                 Contact Us
               </a>
               <div className="flex gap-6">
-                {socialLinks.map(link => (
+                {socialLinks.map((link) => (
                   <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
                     <img 
                       src={link.img} 
@@ -100,8 +90,6 @@ const Navbar = () => {
                 ))}
               </div>
             </div>
-            {/* Empty div to maintain layout on mobile */}
-            <div className="md:hidden w-8"></div>
           </div>
         </nav>
       </header>
@@ -139,14 +127,14 @@ const Navbar = () => {
 
         {/* Menu items */}
         <div className="flex flex-col px-6 pt-8">
-          {navLinks.map(link => (
+          {navLinks.map((link) => (
             <a 
-              key={link.href}
-              href={link.href} 
+              key={link.id} 
+              href={`#${link.id}`} 
               className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
               onClick={closeMenu}
             >
-              {link.label.toUpperCase ? link.label.toUpperCase() : link.label}
+              {link.name}
             </a>
           ))}
           
@@ -163,7 +151,7 @@ const Navbar = () => {
 
           {/* Social media links */}
           <div className="flex justify-center gap-8 mb-10">
-            {socialLinks.map(link => (
+            {socialLinks.map((link) => (
               <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
                 <img 
                   src={link.img} 

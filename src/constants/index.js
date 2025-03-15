@@ -17,9 +17,9 @@ import {
 
 // NAVBAR SECTION
 export const navLinks = [
-  { id: "about-us", name: "About Us" },
-  { id: "amenities", name: "Amenities" },
-  { id: "gallery", name: "Events" },
+  { id: "about-us", name: "ABOUT US" },
+  { id: "amenities", name: "AMENITIES" },
+  { id: "events", name: "EVENTS" },
 ];
 export const socialLinks = [
   { href: "https://www.instagram.com/bananasportsblr", img: instagram, alt: "Instagram" },

@@ -3,7 +3,6 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { EventImages, HOST } from "../constants/index";
 
-// Extracted components for better modularity
 const SlideNavButton = ({ direction, onClick }) => {
   const Icon = direction === "left" ? FaArrowLeft : FaArrowRight;
   const position = direction === "left" ? "left-2 sm:left-4" : "right-2 sm:right-4";
@@ -118,64 +117,75 @@ const ImageSlider = ({ images, currentIndex, handlePrev, handleNext, goToSlide, 
 const Events = ({ id }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [headerHeight, setHeaderHeight] = useState(104);
   const sliderRef = useRef(null);
   const headingRef = useRef(null);
-  const headerHeight = 104; // Your header height, same as in the Amenities component
+  const sectionRef = useRef(null);
 
-  // Add scroll handling logic
+  useEffect(() => {
+    const header = document.querySelector('header');
+    if (header) {
+      setHeaderHeight(header.offsetHeight);
+    }
+  }, []);
+
   useEffect(() => {
     const scrollToSection = () => {
-      if (headingRef.current && window.location.hash === `#${id}`) {
-        // Add a small delay to ensure DOM is fully rendered
+      if (sectionRef.current && window.location.hash === `#${id}`) {
         setTimeout(() => {
-          const yPosition = 
-            headingRef.current.getBoundingClientRect().top + 
-            window.scrollY - 
-            headerHeight;
+          const sectionTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+          const offset = headerHeight + 24; 
           
           window.scrollTo({
-            top: yPosition,
+            top: sectionTop - offset,
             behavior: 'smooth'
           });
+        }, 400); 
+      }
+    };
+
+    if (window.location.hash === `#${id}`) {
+      scrollToSection();
+    }
+    window.addEventListener('hashchange', scrollToSection);
+
+    const handleNavLinkClick = (e) => {
+      const target = e.target;
+      const href = target.getAttribute('href') || 
+                  (target.closest('a') ? target.closest('a').getAttribute('href') : null);
+      
+      if (href === `#${id}`) {
+        e.preventDefault();
+
+        window.history.pushState(null, '', `#${id}`);
+
+        setTimeout(() => {
+          if (sectionRef.current) {
+            const sectionTop = sectionRef.current.getBoundingClientRect().top + window.scrollY;
+            const offset = headerHeight + 24;
+            
+            window.scrollTo({
+              top: sectionTop - offset,
+              behavior: 'smooth'
+            });
+          }
         }, 100);
       }
     };
 
-    // Handle both direct URL access and navigation changes
-    scrollToSection();
-    window.addEventListener('hashchange', scrollToSection);
-    
-    // Handle clicks on navbar links targeting this section
-    const handleNavLinkClick = (e) => {
-      const href = e.target.getAttribute('href');
-      
-      if (href === `#${id}`) {
-        e.preventDefault();
-        
-        // Update URL without default jump
-        window.history.pushState(null, '', `#${id}`);
-        
-        // Use our unified scroll function
-        scrollToSection();
-      }
-    };
-
-    // Add click handlers to all relevant navbar links
     const navLinks = document.querySelectorAll(`a[href="#${id}"]`);
     navLinks.forEach(link => {
       link.addEventListener('click', handleNavLinkClick);
     });
-    
-    // Clean up all event listeners
+
     return () => {
       window.removeEventListener('hashchange', scrollToSection);
       navLinks.forEach(link => {
         link.removeEventListener('click', handleNavLinkClick);
       });
     };
-  }, [id]);
+  }, [id, headerHeight]);
 
-  // Reduced time from 5000ms to 3000ms
   useEffect(() => {
     if (!isHovering) {
       const interval = setInterval(() => {
@@ -199,7 +209,6 @@ const Events = ({ id }) => {
     setCurrentIndex(index);
   };
 
-  // Preload images to prevent flashing
   useEffect(() => {
     EventImages.forEach((src) => {
       const img = new Image();
@@ -208,7 +217,11 @@ const Events = ({ id }) => {
   }, []);
 
   return (
-    <section id={id} className="relative bg-gray py-4 sm:py-6 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section 
+      id={id} 
+      ref={sectionRef}
+      className="relative bg-gray py-4 sm:py-6 md:py-8 px-4 sm:px-6 lg:px-8 overflow-hidden"
+    >
       <BackgroundDecorations />
       
       {/* Content container */}

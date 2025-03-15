@@ -24,7 +24,6 @@ const AboutUs = ({ id }) => {
     
     setupMarquee();
     
-    // Handle window resize to keep the animation smooth
     window.addEventListener('resize', setupMarquee);
     
     return () => {
@@ -67,4 +66,5 @@ const AboutUs = ({ id }) => {
     </>
   );
 };
+
 export default AboutUs;
