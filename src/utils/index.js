@@ -9,7 +9,7 @@ import highlightSectmv from "/videos/merch.mp4";
 import highlightThirdmv from "/videos/h1.mp4";
 import highlightFourthmv from "/videos/h2.mp4";
 import hudle from "/images/hudle.png";
-import km from "/images/km.png";
+import km from "/images/km.jpg";
 import piplay from "/images/piplay.png";
 import playo from "/images/playo.webp";
 import paddles from "/images/paddles.jpg";
