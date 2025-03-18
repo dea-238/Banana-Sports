@@ -21,6 +21,7 @@ import v from "/videos/v.mp4";
 import w1 from "/images/w1.svg";
 
 
+
 export const logoPic= logo1;
 export const BSLOGO = logo2;
 export const instagram  = insta;
