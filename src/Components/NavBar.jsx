@@ -33,7 +33,7 @@ const Navbar = () => {
     <>
       <header className={`w-full fixed ${isScrolled ? 'top-0' : 'top-[36px]'} left-0 z-[90] shadow-md transition-all duration-300`}>
         {/* Main navbar container */}
-        <nav className="w-full px-4 sm:px-6 py-1 flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12 relative">
+        <nav className="w-full px-4 sm:px-6 py-1 font-Basier flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12 relative">
           {/* Left section: Mobile menu button or Desktop nav links */}
           <div className="w-1/3 flex justify-start">
             {/* Mobile menu button */}
