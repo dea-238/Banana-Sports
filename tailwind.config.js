@@ -14,8 +14,8 @@ export default {
         black: "#000000",
       },
       fontFamily: {
-        aldi: ['Aldi', 'system-ui', 'sans-serif'],
-        thunder: ['Thunder', 'system-ui', 'sans-serif'],
+        aldi: ['Aldi'],
+        thunder: ['Thunder'],
       },
     },
   },

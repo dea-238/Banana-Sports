@@ -5,16 +5,24 @@ import gsap from "gsap";
 
 const Hero = ({ id }) => {
   const [current, setCurrent] = useState(0);
+  const [next, setNext] = useState(1);
+  const [isFading, setIsFading] = useState(false);
   const buttonRef = useRef(null);
-  const currentSlide = highlightsSlides[current];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % highlightsSlides.length);
-    }, currentSlide.videoDuration * 1000);
+      setIsFading(true); 
+
+      setTimeout(() => {
+        setCurrent(next);
+        setNext((next + 1) % highlightsSlides.length);
+        setIsFading(false);
+      }, 800); // Transition duration
+
+    }, highlightsSlides[current].videoDuration * 1000);
 
     return () => clearInterval(interval);
-  }, [current, currentSlide.videoDuration]);
+  }, [current, next]);
 
   useEffect(() => {
     if (!buttonRef.current) return;
@@ -32,22 +40,34 @@ const Hero = ({ id }) => {
     <>
       {/* Invisible anchor point */}
       <div id={id} className="relative top-[-120px] invisible h-0" />
-      
+
       <section className="relative h-[85vh] flex items-center justify-start px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden">
-        {/* Video Background */}
-        {highlightsSlides.map((slide, index) => (
-          <video
-            key={index}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-              index === current ? "opacity-100" : "opacity-0"
-            }`}
-            autoPlay
-            loop
-            muted
-          >
-            <source src={slide.video} type="video/mp4" />
-          </video>
-        ))}
+        
+        {/* Current Video */}
+        <video
+          key={current}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            isFading ? "opacity-0" : "opacity-100"
+          }`}
+          autoPlay
+          loop
+          muted
+        >
+          <source src={highlightsSlides[current].video} type="video/mp4" />
+        </video>
+
+        {/* Next Video for Crossfade Effect */}
+        <video
+          key={next}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            isFading ? "opacity-100" : "opacity-0"
+          }`}
+          autoPlay
+          loop
+          muted
+        >
+          <source src={highlightsSlides[next].video} type="video/mp4" />
+        </video>
 
         {/* Overlay */}
         <div className="absolute inset-0 bg-black/40"></div>
@@ -63,7 +83,7 @@ const Hero = ({ id }) => {
           </h1>
 
           <ul className="mt-3 md:mt-4 text-left space-y-2">
-            {currentSlide.textLists.map((text, idx) => (
+            {highlightsSlides[current].textLists.map((text, idx) => (
               <li key={idx} className="text-sm sm:text-sm md:text-base lg:text-lg">
                 {text}
               </li>
@@ -84,7 +104,10 @@ const Hero = ({ id }) => {
           {highlightsSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrent(index)}
+              onClick={() => {
+                setCurrent(index);
+                setNext((index + 1) % highlightsSlides.length);
+              }}
               className={`h-3 md:h-4 w-3 md:w-4 rounded-full transition-all ${
                 index === current ? "bg-white scale-125" : "bg-gray-400"
               }`}
