@@ -21,7 +21,7 @@
 /* Add this new layer */
 @layer base {
   html {
-    font-family: 'Basier', 'Thunder', system-ui, sans-serif;
+    font-family: 'Basier', 'Thunder';
   }
 }
 
