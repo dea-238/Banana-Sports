@@ -1,8 +1,8 @@
 import {
-  highlightFirstVideo,
-  highlightFourthVideo,
-  highlightSecondVideo,
-  highlightThirdVideo,
+  highlightFirstImage,
+  highlightFourthImage,
+  highlightSecondImage,
+  highlightThirdImage,
   playoImg,
   kmImg,
   hudleImg,
@@ -12,14 +12,18 @@ import {
   person3,
   person4,
   instagram,
-  whatsapp
+  whatsapp,
+  e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14
 } from "../utils";
+
+//ANNOUNCEMENT BAR
+export const TOPBAR={
+  text:"NEW EXCITING OFFERS COMING SOON!"
+}
 
 // NAVBAR SECTION
 export const navLinks = [
-  { id: "about-us", name: "ABOUT US" },
-  { id: "amenities", name: "AMENITIES" },
-  { id: "events", name: "EVENTS" },
+  { id: "gallery", name: "GALLERY" },
 ];
 export const socialLinks = [
   { href: "https://www.instagram.com/bananasportsblr", img: instagram, alt: "Instagram" },
@@ -30,37 +34,63 @@ export const socialLinks = [
 export const highlightsSlides = [
   {
     id: 1,
-    textLists: [
-      "Master the Game.",
-      "Top-tier Pickleball Training.",
-      "Elevate Your Skills.",
-    ],
-    video: highlightFirstVideo,
-    videoDuration: 5,
+    textLists: ["State of the art courts"],
+    image: highlightFirstImage, 
+    imageDuration: 3, 
   },
   {
     id: 2,
-    textLists: ["State-of-the-art Courts.", "Perfect Surface. Perfect Play."],
-    video: highlightSecondVideo,
-    videoDuration: 5,
+    textLists: ["Pure grass, pure game"],
+    image: highlightSecondImage,
+    imageDuration: 3, 
   },
   {
     id: 3,
-    textLists: [
-      "Experience Unmatched Play.",
-      "Pro-level Equipment & Gear.",
-      "Game On!",
-    ],
-    video: highlightThirdVideo,
-    videoDuration: 5,
+    textLists: ["Unleash your best"],
+    image: highlightThirdImage, // Replace with actual image import or path
+    imageDuration: 3, // 3 seconds duration
   },
   {
     id: 4,
-    textLists: ["Join the Pickleball Community.", "Every Rally Counts!"],
-    video: highlightFourthVideo,
-    videoDuration: 5,
+    textLists: ["Play in Style!"],
+    image: highlightFourthImage, // Replace with actual image import or path
+    imageDuration: 3, // 3 seconds duration
   },
 ];
+
+// ABOUT US SECTION
+
+export const aboutus = {
+  sectionId: "about",
+
+  marquee: {
+    text: "BANANAS FOR SPORTS!  ",
+    repeatCount: 20,
+  },
+
+  image: {
+    src: "/images/aboutus.jpg",
+    alt: "Banana Sports Facility",
+  },
+
+  content: {
+    aboutHeading: "ABOUT US",
+    aboutDescription: `
+      Welcome to Banana Sports—where top-notch facilities meet unbeatable energy!
+      Whether you’re here to train seriously, compete fiercely, or just have fun, our space is built for all athletes.
+      With great vibes, friendly faces, and nonstop action, every visit is bananas!
+    `,
+
+    missionHeading: "OUR MISSION",
+    missionDescription: `
+      We are dedicated to making sports accessible, engaging, and inspiring.
+      Whether you’re an aspiring athlete or just looking to stay active, Banana Sports is here to support your journey.
+      Come be a part of the action—because sports should be for everyone!
+    `,
+  },
+};
+
+
 
 // AMENITIES SECTION
 
@@ -83,7 +113,7 @@ export const AMENITIES = {
     },
     { 
       TITLE: "Restroom and Shower", 
-      DESCRIPTION: "Super clean bathrooms and awesome showers!" 
+      DESCRIPTION: "Super clean bathrooms and showers!" 
     }
   ]
 };
@@ -110,39 +140,42 @@ export const EventImages = [
   "/images/e9.jpg",
   "/images/e10.jpg",
 ];
+export const images = [
+  e1,e2,e3,e4,e5,e6,e7,e8,e9,e10,e11,e12,e13,e14
+];
 
 //TESTIMONIALS SECTION
-
 export const reviews = [
   {
     id: 1,
-    text: "I've been a member at Louvre for over a year now, and it’s hands down the best sports center I’ve ever been to!",
-    author: "Barry Allen",
-    role: "Premium member",
+    text: "Banana Sports is my go-to spot! The atmosphere is fun, the snacks were yum, and the drinks were refreshing!",
+    author: "Deepa Sharma",
+    role: "Master Chef",
     image: person1,
   },
   {
     id: 2,
-    text: "The facilities here are top-notch, and the staff is always friendly and helpful!",
-    author: "Diana Prince",
-    role: "Fitness Enthusiast",
+    text: "Great place for football! The turf feels great to play on. My friends and I come here all the time.",
+    author: "Sebastian James",
+    role: "Sports Enthusiast",
     image: person2,
   },
   {
     id: 3,
-    text: "A great place to work out and relax. The environment is clean and welcoming.",
-    author: "Clark Kent",
-    role: "Gym Member",
+    text: "The pickleball courts here are amazing and well maintained. Love playing here every weekend!",
+    author: "Priya Nair",
+    role: "Fitness Freak",
     image: person3,
   },
   {
-    id: 4, 
-    text: "Love the sport, Love the courts, Overall Great Vibes.",
-    author: "Tony Stark",
-    role: "Tennis Player",
+    id: 4,
+    text: "Had an awesome time playing box cricket! Definitely coming back soon!",
+    author: "Adarsh Reddy",
+    role: "Couch Potato",
     image: person4,
   },
 ];
+
 
 // WHATSAPP SECTION
 

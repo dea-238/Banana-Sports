@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
 import { equipmentImg, amenitiesVideo } from '../utils';
 import { AMENITIES } from '../constants';
 
 const Amenities = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
-  const headerHeight = 104; 
+  const featureGridRef = useRef(null);
+  const regularGridRef = useRef(null);
+  const headerHeight = 104;
+  const [isInView, setIsInView] = useState(false);
 
   useEffect(() => {
     const scrollToSection = () => {
@@ -45,106 +47,105 @@ const Amenities = () => {
       link.addEventListener('click', handleNavLinkClick);
     });
 
+    const observeElements = () => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              setIsInView(true);
+              if (entry.target === featureGridRef.current) {
+                featureGridRef.current.classList.add('animate');
+              }
+              if (entry.target === regularGridRef.current) {
+                regularGridRef.current.classList.add('animate');
+              }
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      if (featureGridRef.current) {
+        observer.observe(featureGridRef.current);
+      }
+      
+      if (regularGridRef.current) {
+        observer.observe(regularGridRef.current);
+      }
+
+      return observer;
+    };
+
+    const observer = observeElements();
+
     return () => {
       window.removeEventListener('hashchange', scrollToSection);
       navLinks.forEach(link => {
         link.removeEventListener('click', handleNavLinkClick);
       });
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, []);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1, y: 0,
-      transition: {
-        type: 'spring',
-        damping: 8,
-        stiffness: 80,
-      },
-    },
-  };
 
   return (
     <section
       id="amenities"
       ref={sectionRef}
-      className="bg-white text-black py-10 sm:py-12 md:py-16 px-4 sm:px-8 md:px-12 lg:px-20 overflow-hidden">
+      className="amenities-section">
       
-      <motion.div
-        ref={headingRef}
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, type: 'spring' }}
-        className="text-center mb-4 sm:mb-6 md:mb-8 scroll-mt-[120px]">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider font-thunder text-black">
-          <span className="text-black">{AMENITIES.TITLE}</span>
-        </h2>
-      </motion.div>
+      <div className="amenities-container">
+        <div
+          ref={headingRef}
+          className={`amenities-heading ${isInView ? 'amenities-slide-down' : ''}`}>
+          <h2 className="amenities-title">
+            <span>{AMENITIES.TITLE}</span>
+          </h2>
+        </div>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10 mb-8 sm:mb-12 md:mb-16">
-        <motion.div
-          variants={itemVariants}
-          className="relative bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-2 border-yellow outline outline-2 outline-yellow md:col-span-2 flex flex-col"
-          style={{ minHeight: '280px' }}>
+      <div
+        ref={featureGridRef}
+        className="amenities-feature-grid amenities-stagger-container">
+        <div
+          className="amenities-feature-item amenities-feature-item-large amenities-stagger-item">
           <img
             src={equipmentImg}
             alt="Practice Equipment"
-            className="absolute inset-0 w-full h-full object-cover"/>
-          <div
-            className="absolute bg-gray-900 bg-opacity-60 text-white flex flex-col justify-center p-6 sm:p-8"
-            style={{ width: '50%', height: '100%', right: 0 }}>
-            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold">
+            className="amenities-feature-image"/>
+          <div className="amenities-feature-overlay">
+            <h3 className="amenities-feature-title">
               {AMENITIES.FEATURE_SECTION.PREMIUM_EQUIPMENT.TITLE}
             </h3>
-            <p className="leading-relaxed text-sm sm:text-base md:text-lg mt-2">
+            <p className="amenities-feature-description">
               {AMENITIES.FEATURE_SECTION.PREMIUM_EQUIPMENT.DESCRIPTION}
             </p>
           </div>
-        </motion.div>
-        <motion.div
-          variants={itemVariants}
-          className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden border-2 border-yellow outline outline-2 outline-yellow">
-          <div className="aspect-square w-full">
-            <video autoPlay loop muted playsInline className="w-full h-full object-cover">
+        </div>
+        <div className="amenities-feature-item amenities-stagger-item">
+          <div className="amenities-video-container">
+            <video autoPlay loop muted playsInline className="amenities-video">
               <source src={amenitiesVideo} type="video/mp4" />
             </video>
           </div>
-        </motion.div>
-      </motion.div>
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mt-4 mb-0">
+        </div>
+      </div>
+
+      <div
+        ref={regularGridRef}
+        className="amenities-grid amenities-stagger-container">
         {AMENITIES.ITEMS.map((item, index) => (
-          <motion.div
+          <div
             key={index}
-            variants={itemVariants}
-            className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border-2 border-yellow-400 outline outline-2 outline-yellow-400 h-48 sm:h-56 md:h-64 flex flex-col justify-start p-6 sm:p-7">
-            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-black">{item.TITLE}</h3>
-            <p className="text-black mt-2 sm:mt-3 text-sm sm:text-base md:text-lg">{item.DESCRIPTION}</p>
-          </motion.div>
+            className="amenities-item amenities-stagger-item">
+            <h3 className="amenities-item-title">{item.TITLE}</h3>
+            <p className="amenities-item-description">{item.DESCRIPTION}</p>
+          </div>
         ))}
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 };
+
 export default Amenities;

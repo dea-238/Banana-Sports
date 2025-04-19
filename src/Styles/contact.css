@@ -1,0 +1,128 @@
+/* Contact Section Styles */
+.contact-section {
+    background-color: #FFD900;
+    padding: 1rem;
+    border-radius: 50px 50px 0 0;
+    width: 100%;
+    overflow: hidden;
+    color: #1a202c;
+  }
+  
+  .contact-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+  }
+  
+  .contact-left {
+    width: 100%;
+  }
+  
+  .booking-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .booking-links {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .booking-link {
+    width: 75%;
+    background-color: white;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s;
+  }
+  
+  .booking-link:hover {
+    background-color: #d1d5db;
+  }
+  
+  .booking-link img {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  
+  .contact-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .contact-section-title {
+    font-weight: 600;
+  }
+  
+  .contact-list {
+    list-style-type: none;
+  }
+  
+  .contact-list li {
+    margin-bottom: 0.25rem;
+  }
+  
+  .contact-list-spaced li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .contact-footer {
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(107, 114, 128, 0.4);
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 640px) {
+    .contact-footer {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .contact-section {
+      padding: 2.5rem;
+    }
+    
+    .booking-link {
+      width: 50%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .contact-section {
+      padding: 2.5rem 4rem 2.5rem 2.5rem;
+    }
+  
+    .contact-container {
+      flex-direction: row;
+    }
+  
+    .contact-left {
+      width: 50%;
+    }
+  
+    .contact-right {
+      width: 33.333333%;
+    }
+  }

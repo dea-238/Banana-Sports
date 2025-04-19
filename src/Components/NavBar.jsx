@@ -1,59 +1,70 @@
-import { instagram, BSLOGO, whatsapp } from "../utils";
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X }             from "lucide-react";
 import { navLinks, socialLinks } from "../constants";
+import { BSLOGO }                from "../utils";
 
-const Navbar = () => {
+const BREAKPOINT_DESKTOP = 835;  
+
+export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen,  setMenuOpen ]  = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-
-    const handleResize = () => {
-      if (window.innerWidth >= 768 && menuOpen) {
-        setMenuOpen(false);
+    const onScroll = () => setIsScrolled(window.scrollY > 40);
+    const onResize = () => {
+      if (window.innerWidth >= BREAKPOINT_DESKTOP && menuOpen) {
+        setMenuOpen(false);            
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
+    onScroll();  onResize();          
+    document.body.style.overflow = menuOpen ? "hidden" : "";
 
+    window.addEventListener("scroll",  onScroll);
+    window.addEventListener("resize", onResize);
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll",  onScroll);
+      window.removeEventListener("resize", onResize);
+      document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  const allNavLinks = [
+    ...navLinks,
+    {
+      id: "location",
+      name: "LOCATION",
+      href: "https://www.google.com/maps/dir//29%2F8,+Mullur+Rd,+off+Sarjapur+-+Marathahalli+Road,+Carmelam+Post,+Bengaluru,+Karnataka+560035/@12.9048034,77.6405144,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae13a2a9dab9b5:0x5019ea5d5e3bc95b!2m2!1d77.7229163!2d12.9048163?entry=ttu",
+      external: true,
+    },
+  ];
 
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <>
-      <header className={`w-full fixed ${isScrolled ? 'top-0' : 'top-[36px]'} left-0 z-[90] shadow-md transition-all duration-300`}>
-        {/* Main navbar container */}
-        <nav className="w-full px-4 sm:px-6 py-1 font-Basier flex items-center justify-between bg-[#F8F8F5] border-b border-[#648E37] md:px-12 relative">
-          {/* Left section: Mobile menu button or Desktop nav links */}
-          <div className="w-1/3 flex justify-start">
-            {/* Mobile menu button */}
-            <div className="md:hidden">
+    <div className="navbar-container">
+      <header className={isScrolled ? "navbar-scrolled" : "navbar-not-scrolled"}>
+        <nav>
+          <div className="nav-section nav-left">
+            <div className="md-hidden">
               <button
-                className="text-black focus:outline-none z-[110] relative transition-transform duration-300 hover:scale-110"
+                className="menu-toggle"
                 onClick={() => setMenuOpen(!menuOpen)}
                 aria-label="Toggle menu"
+                aria-expanded={menuOpen}
               >
                 {menuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
 
-            {/* Desktop menu links */}
-            <div className="hidden md:flex gap-10 font-semibold tracking-wide uppercase text-lg">
-              {navLinks.map((link) => (
+            <div className="nav-links hidden md:flex">
+              {allNavLinks.map(link => (
                 <a
-                  key={link.id} 
-                  href={`#${link.id}`}
-                  className="cursor-pointer transition-colors duration-300 hover:drop-shadow-md hover:scale-110"
+                  key={link.id}
+                  href={link.external ? link.href : `#${link.id}`}
+                  className="nav-link"
+                  target={link.external ? "_blank" : ""}
+                  rel={link.external ? "noopener noreferrer" : ""}
                 >
                   {link.name}
                 </a>
@@ -61,31 +72,26 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Middle section: Logo */}
-          <div className="w-1/3 flex justify-center items-center">
-            <a href="#hero">
-              <img
-                src={BSLOGO}
-                alt="Banana Sports"
-                className="h-16 cursor-pointer transition-transform duration-300 hover:scale-105"
-              />
+          <div className={`nav-section nav-center ${menuOpen ? "md:block hidden" : "block"}`}>
+            <a href="#hero" aria-label="Go to homepage">
+              <img src={BSLOGO} alt="Banana Sports" className="nav-logo" />
             </a>
           </div>
 
-          {/* Right section: Contact and social icons */}
-          <div className="w-1/3 flex justify-end">
-            <div className="hidden md:flex items-center gap-5">
-              <a href="#contact" className="bg-[#FFD900] px-6 py-3 font-bold text-black uppercase tracking-wide rounded-full shadow-lg transition-all duration-300 hover:bg-[#F8F8F5] hover:shadow-lg hover:scale-110">
-                Contact Us
-              </a>
-              <div className="flex gap-6">
-                {socialLinks.map((link) => (
-                  <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
-                    <img 
-                      src={link.img} 
-                      alt={link.alt} 
-                      className="h-8 w-8 cursor-pointer hover:scale-125 transition-transform duration-300 shadow-lg hover:shadow-xl filter brightness-70 contrast-125" 
-                    />
+          <div className="nav-section nav-right">
+            <div className="desktop-nav-actions">
+              <a href="#contact" className="nav-contact">Contact Us</a>
+              <div className="social-links">
+                {socialLinks.map(link => (
+                  <a
+                    key={link.alt}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-link"
+                    aria-label={link.alt}
+                  >
+                    <img src={link.img} alt={link.alt}/>
                   </a>
                 ))}
               </div>
@@ -93,81 +99,65 @@ const Navbar = () => {
           </div>
         </nav>
       </header>
-      
-      {/* Mobile menu overlay */}
-      <div 
-        className={`fixed inset-0 bg-black bg-opacity-50 z-[95] transition-opacity duration-300 ${
-          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-        onClick={closeMenu}
-      ></div>
 
-      {/* Mobile menu slide out panel */}
-      <div 
-        className={`fixed top-0 left-0 h-full w-[85%] max-w-xs bg-[#F0F0EA] bg-opacity-95 z-[100] shadow-xl transform transition-transform duration-300 ease-in-out ${
-          menuOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:hidden overflow-y-auto`}
+      <div
+        className={`menu-backdrop ${menuOpen ? "visible" : ""}`}
+        onClick={closeMenu}
+        aria-hidden="true"
+      />
+      <div
+        className={`mobile-nav ${menuOpen ? "visible" : ""}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
       >
-        {/* Safe area for top of mobile devices */}
-        <div className="h-8 bg-[#F0F0EA]"></div>
-        
-        {/* Menu header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-300">
-          <button
-            className="text-black focus:outline-none p-2"
-            onClick={closeMenu}
-            aria-label="Close menu"
-          >
-            <X size={24} />
+        <div className="mobile-nav-safe-area"/>
+        <div className="mobile-nav-header">
+          <button className="mobile-nav-close" onClick={closeMenu} aria-label="Close menu">
+            <X size={24}/>
           </button>
-          <div>
-            <img src={BSLOGO} alt="Banana Sports" className="h-10" />
-          </div>
+          <img src={BSLOGO} alt="Banana Sports" className="mobile-nav-logo"/>
         </div>
 
-        {/* Menu items */}
-        <div className="flex flex-col px-6 pt-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.id} 
-              href={`#${link.id}`} 
-              className="py-3 border-b border-gray-200 font-bold uppercase text-xl"
+        <div className="mobile-nav-items">
+          {allNavLinks.map(link => (
+            <a
+              key={link.id}
+              href={link.external ? link.href : `#${link.id}`}
+              className="mobile-nav-link"
               onClick={closeMenu}
+              target={link.external ? "_blank" : ""}
+              rel={link.external ? "noopener noreferrer" : ""}
             >
               {link.name}
             </a>
           ))}
-          
-          {/* Contact Us button */}
-          <div className="mt-10 mb-8 w-full px-4">
-            <a 
-              href="#contact" 
-              className="block w-full bg-[#FFD900] py-3 font-bold text-black uppercase text-center rounded-full transition-all duration-300 hover:bg-[#FFE44D]"
-              onClick={closeMenu}
-            >
-              CONTACT US
-            </a>
-          </div>
+          {!navLinks.some(l => l.id === "gallery") && (
+            <a href="#gallery" className="mobile-nav-link" onClick={closeMenu}>GALLERY</a>
+          )}
+        </div>
 
-          {/* Social media links */}
-          <div className="flex justify-center gap-8 mb-10">
-            {socialLinks.map((link) => (
-              <a key={link.alt} href={link.href} target="_blank" rel="noopener noreferrer">
-                <img 
-                  src={link.img} 
-                  alt={link.alt} 
-                  className="h-10 w-10 transition-transform duration-300 hover:scale-110" 
-                />
-              </a>
-            ))}
-          </div>
+        <div className="mobile-contact-wrapper">
+          <a href="#contact" className="mobile-contact-btn" onClick={closeMenu}>CONTACT US</a>
+        </div>
+
+        <div className="mobile-social-links">
+          {socialLinks.map(link => (
+            <a
+              key={link.alt}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mobile-social-link"
+              aria-label={link.alt}
+            >
+              <img src={link.img} alt={link.alt}/>
+            </a>
+          ))}
         </div>
       </div>
-      
-      {/* Empty div to push content below fixed navbar */}
-      <div className={`${isScrolled ? 'h-[68px]' : 'h-[104px]'} transition-all duration-300`}></div>
-    </>
-  );
-};
 
-export default Navbar;
+      <div className={`navbar-spacer ${isScrolled ? "scrolled" : "not-scrolled"}`}/>
+    </div>
+  );
+}

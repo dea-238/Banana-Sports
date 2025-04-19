@@ -1,0 +1,109 @@
+/* ===================================================================== *
+   POPUP  — “Don’t miss out”                                             *
+ * ===================================================================== */
+
+/* ───────── Shadow overlay + centering ───────── */
+.popup-overlay{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-inline:1rem;             /* phones */
+    z-index:999;
+  }
+  
+  /* ───────── White card container ───────── */
+  .popup-box{
+    position:relative;           /* ⭐ add this line  */
+    width:100%;
+    max-width:350px;
+    background:#fff;
+    border-radius:1rem;
+    overflow:hidden;
+    box-shadow:0 15px 25px -5px rgb(0 0 0 / .25);
+    outline:4px solid #FFD900;
+    max-height:90vh;
+    overflow-y:auto;
+  }
+  
+  @media (min-width:640px){          /* sm */
+    .popup-overlay{padding-inline:0;}
+    .popup-box{max-width:380px;}
+  }
+  
+  /* ───────── Close button ───────── */
+  .popup-close{
+    position:absolute;
+    inset-block-start:.5rem;
+    inset-inline-end:.5rem;
+    width:2rem;height:2rem;
+    display:flex;justify-content:center;align-items:center;
+    border-radius:50%;
+    background:#fff;
+    font-weight:700;
+    color:#1F2937;                   /* gray‑800 */
+    box-shadow:0 1px 3px rgb(0 0 0 / .2);
+    transition:background .2s;
+  }
+  .popup-close:hover{background:#F3F4F6;}   /* gray‑100 */
+  
+  /* ───────── Logo  (animation handled in JS) ───────── */
+  .popup-logo-wrapper{display:flex;justify-content:center;padding-top:1.5rem;}
+  .popup-logo{
+    width:6rem;height:6rem;          /* phones */
+    object-fit:contain;
+    transform-origin:bottom center;
+    transition:transform .2s;
+  }
+  @media (min-width:640px){
+    .popup-logo{width:8rem;height:8rem;}
+  }
+  
+  /* ───────── Text section ───────── */
+  .popup-body{padding:1.25rem;text-align:center;}
+  @media (min-width:640px){.popup-body{padding:1.5rem;}}
+  
+  .popup-title{
+    font-size:1.5rem;                /* 24 px */
+    font-weight:800;
+    color:#000;
+    margin-block-end:.5rem;
+    letter-spacing:-.02em;
+  }
+  @media (min-width:640px){.popup-title{font-size:1.875rem;}}
+  
+  .popup-desc{
+    color:#4B5563;                   /* gray‑600 */
+    font-size:1rem;
+    line-height:1.6;
+    margin-block-end:1.25rem;
+    max-width:20rem;
+    margin-inline:auto;
+  }
+  @media (min-width:640px){.popup-desc{font-size:1.125rem;margin-block-end:1.5rem;}}
+  
+  /* ───────── Primary CTA button ───────── */
+  .popup-cta{
+    width:100%;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:.5rem;
+    background:#16A34A;              /* green‑600 */
+    color:#fff;
+    padding-block:.75rem;
+    border-radius:9999px;
+    font-weight:700;
+    font-size:.875rem;
+    box-shadow:0 4px 8px -2px rgb(0 0 0 / .25);
+    transition:background .2s,transform .2s;
+  }
+  .popup-cta:hover{
+    background:#15803D;              /* green‑700 */
+    transform:scale(1.05);
+  }
+  @media (min-width:640px){
+    .popup-cta{font-size:1rem;padding-block:1rem;}
+  }
+  

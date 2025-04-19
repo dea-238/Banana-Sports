@@ -1,0 +1,149 @@
+/* Reviews Section Styles */
+.reviews-section {
+    background-color: white;
+    padding: 4rem 1rem 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .reviews-container {
+    width: 100%;
+    max-width: 72rem; /* max-w-6xl */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+  }
+  
+  .review-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: 3rem; /* Add consistent bottom margin on mobile */
+  }
+  
+  .avatar-container {
+    position: relative;
+    width: 5rem; /* Slightly smaller on mobile */
+    height: 5rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .avatar-glow {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: intenseYellowGlow 4s infinite alternate;
+  }
+  
+  .avatar-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 10;
+  }
+  
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  
+  .author-name {
+    margin-top: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #6b7280;
+    word-break: break-word;
+  }
+  
+  .author-role {
+    font-size: 0.875rem;
+    color: #6b7280;
+    word-break: break-word;
+  }
+  
+  .review-text {
+    margin-top: 1rem;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    line-height: 1.625;
+    word-break: break-word;
+    font-family: sans-serif; 
+  }
+  
+  /* Animation for yellow glow effect */
+  @keyframes intenseYellowGlow {
+    0% { 
+      box-shadow: 0 0 10px rgba(255, 223, 0, 0.5); 
+    }
+    50% { 
+      box-shadow: 0 0 18px 8px rgba(255, 215, 0, 0.7); 
+    }
+    100% { 
+      box-shadow: 0 0 10px rgba(255, 223, 0, 0.5); 
+    }
+  }
+  
+  /* Responsive styles */
+  @media (min-width: 640px) {
+    .reviews-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem; /* Adjusted gap for tablet */
+    }
+    
+    .review-card {
+      margin-bottom: 0; /* Remove the mobile margin */
+    }
+    
+    .review-card-even {
+      margin-bottom: 4rem;
+    }
+    
+    .review-card-odd {
+      margin-top: 4rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .reviews-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    
+    .avatar-container {
+      width: 8rem;
+      height: 8rem;
+    }
+  }
+  
+  /* Fix for very small screens */
+  @media (max-width: 360px) {
+    .reviews-grid {
+      gap: 1rem;
+    }
+    
+    .avatar-container {
+      width: 4rem;
+      height: 4rem;
+    }
+    
+    .review-card {
+      margin-bottom: 2rem;
+    }
+  }

@@ -1,72 +1,75 @@
 import { useEffect, useRef } from "react";
+import { TOPBAR } from '../constants';
 
-const AnnouncementBar = ({ id, text = "NEW EXCITING OFFERS COMING SOON!" }) => {
-  const textRef = useRef(null);
-  const containerRef = useRef(null);
+const useMarqueeAnimation = (containerRef, textRef) => {
   const animationRef = useRef(null);
+  const speedRef = useRef(null);
 
   useEffect(() => {
-    const initializeAnimation = () => {
+    const animateMarquee = () => {
       if (!containerRef.current || !textRef.current) return;
-
+  
       const container = containerRef.current;
       const textElement = textRef.current;
-
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-
       const containerWidth = container.offsetWidth;
       const textWidth = textElement.getBoundingClientRect().width;
-
-      if (containerWidth <= 0 || textWidth <= 0) {
-        setTimeout(initializeAnimation, 100);
-        return;
-      }
-
+  
+      if (!containerWidth || !textWidth) return;
+  
+      const baseSpeed = 0.75;
+      speedRef.current = baseSpeed * (containerWidth / 500);
+      
       let position = containerWidth;
-      textElement.style.transform = `translateX(${position}px)`;
-
-      const speed = 2.5;
-
+  
       const animate = () => {
-        position -= speed;
-        if (position < -textWidth) {
-          position = containerWidth;
-        }
+        position = position <= -textWidth ? containerWidth : position - speedRef.current;
         textElement.style.transform = `translateX(${position}px)`;
         animationRef.current = requestAnimationFrame(animate);
       };
-
-      animate();
+  
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      animationRef.current = requestAnimationFrame(animate);
     };
-
-    initializeAnimation();
-    window.addEventListener("resize", initializeAnimation);
-    window.addEventListener("orientationchange", initializeAnimation);
-
+  
+    animateMarquee();
+  
+    let resizeTimer;
+    const handleResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(animateMarquee, 100);
+    };
+  
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", animateMarquee);
+  
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      window.removeEventListener("resize", initializeAnimation);
-      window.removeEventListener("orientationchange", initializeAnimation);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", animateMarquee);
     };
-  }, []);
+  }, [containerRef, textRef]);
+}
+
+const AnnouncementBar = ({ id, text }) => {
+  const textRef = useRef(null);
+  const containerRef = useRef(null);
+
+  useMarqueeAnimation(containerRef, textRef);
 
   return (
     <div 
-      id={id}
-      ref={containerRef}
-      className="w-full bg-[#101511] h-9 overflow-hidden absolute top-0 left-0 z-[1000] flex items-center"
+      id={id} 
+      ref={containerRef} 
+      className="announcement-bar"
+      role="marquee" 
+      aria-live="polite"
     >
-      <p
-        ref={textRef}
-        className="text-[#F8F8F5] text-sm font-['Aldi',sans-serif] whitespace-nowrap tracking-wider m-0 p-0 absolute will-change-transform"
-      >
-        {text}
+      <p ref={textRef} className="announcement-bar__text">
+        {text || TOPBAR.text}
       </p>
     </div>
   );
 };
+
 export default AnnouncementBar;

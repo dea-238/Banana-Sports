@@ -1,15 +1,15 @@
-# React + Vite
+# 🍌 Banana Sports  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### 🎾 About  
+Banana Sports is a premium Pickleball | Football | Box Cricket facility.Has an Outdoor Café & great Vibes!! Powered by @sptsports.in Sarjapur Road, Bangalore..   
 
-Currently, two official plugins are available:
+### 🛠️ Tech Stack  
+- **Frontend**: React (Vite) + Tailwind CSS  
+- **Deployment**: Vercel 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-"# Banana-Sports" 
-"# Banana-Sports" 
-"# Banana-Sports" 
-"# Banana-Sports" 
-"# Banana-Sports" 
-"# Banana-Sports" 
-"# Banana-Sports" 
+### 📦 Installation  
+```bash
+git clone https://github.com/yourusername/banana-sports.git  
+cd banana-sports  
+npm install  
+npm run dev  

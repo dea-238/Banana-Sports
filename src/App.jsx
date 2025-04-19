@@ -1,9 +1,11 @@
+import Popup from "./Components/PopUp";
 import AnnouncementBar from "./Components/AnnouncementBar";
 import NavBar from "./Components/NavBar"; 
 import Hero from "./Components/Hero";
 import AboutUs from "./Components/AboutUs";
 import Amenities from "./Components/Amenities";
 import Events from "./Components/Events";
+import Gallery from "./Components/Gallery";
 import Reviews from "./Components/Reviews";
 import Whatsapp from "./Components/Whatsapp"
 import Contact from "./Components/Contact";
@@ -11,6 +13,7 @@ import Contact from "./Components/Contact";
 const App = () => {
   return (
     <div className="bg-white">
+      <Popup />
       <div className="relative bg-black text-white">
         <AnnouncementBar />
       </div>
@@ -20,6 +23,7 @@ const App = () => {
         <AboutUs id="about-us" />
         <Amenities id="amenities" />
         <Events id="events" />
+        <Gallery id="gallery" />
         <Reviews id="reviews" />
         <Whatsapp id="whatsapp" />
         <Contact id="contact" />

@@ -1,0 +1,263 @@
+/* ===================================================================== *
+   Design tokens – optional but future‑proof                              *
+ * ===================================================================== */
+ :root{
+  --clr-brand-cream : #F8F8F5;
+  --clr-brand-yellow: #FFD900;
+  --clr-border-green: #648E37;
+  --z-navbar        : 90;
+}
+
+/* ===================================================================== *
+   NAVBAR  – base styles (unchanged from your file)                       *
+ * ===================================================================== */
+.navbar-container header{
+  width:100%;
+  position:fixed;
+  inset-inline-start:0;              /* left:0 in LTR – now RTL‑safe */
+  z-index:var(--z-navbar);
+  box-shadow:0 4px 6px -1px rgba(0,0,0,.1),
+             0 2px 4px -1px rgba(0,0,0,.06);
+  transition:all .3s ease;
+}
+
+.navbar-container header.navbar-scrolled   { top:0; }
+.navbar-container header.navbar-not-scrolled{ top:36px; } /* announcement bar height */
+
+.navbar-container nav{
+  width:100%;
+  padding:.5rem 1rem;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  background-color:var(--clr-brand-cream);
+  font-family:'Basier',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  border-bottom:4px solid var(--clr-border-green);
+  position:relative;
+}
+
+/* ---------- responsive paddings ---------- */
+@media (min-width:640px){
+  .navbar-container nav{padding-inline:1.5rem;flex-wrap:nowrap;}
+}
+@media (min-width:768px){
+  .navbar-container nav{padding-inline:2rem;}
+}
+@media (min-width:1024px){
+  .navbar-container nav{padding-inline:3rem;}
+}
+
+/* ---------- layout zones ---------- */
+.navbar-container .nav-section {width:33.3333%;display:flex;}
+.navbar-container .nav-left   {justify-content:flex-start;}
+.navbar-container .nav-center {justify-content:center;align-items:center;}
+.navbar-container .nav-right  {justify-content:flex-end;}
+
+/* ===================================================================== *
+   Interactive elements                                                  *
+ * ===================================================================== */
+/* hamburger */
+.navbar-container .menu-toggle{
+  color:black;
+  position:relative;
+  z-index:110;
+  background:transparent;
+  border:none;
+  padding:.5rem;
+  transition:transform .3s;
+  display:block;
+}
+.navbar-container .menu-toggle:hover{transform:scale(1.1);}
+.navbar-container .menu-toggle:focus{outline:none;}
+
+@media (min-width:768px){.navbar-container .menu-toggle{display:none;}}
+
+/* links */
+.navbar-container .nav-link{
+  padding:.75rem 1rem;
+  font-weight:700;
+  color:black;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  border-radius:9999px;
+  transition:all .3s;
+  cursor:url('/images/cursor.png') 0 0,auto !important;
+  white-space:nowrap;
+}
+@media (min-width:1024px){.navbar-container .nav-link{padding:.75rem 1.5rem;}}
+.navbar-container .nav-link:hover{
+  background-color:var(--clr-brand-cream);
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),
+             0 4px 6px -2px rgba(0,0,0,.05);
+  transform:scale(1.1);
+}
+
+/* md-hidden utility (kept for consistency) */
+.md-hidden{display:block;}
+@media (min-width:768px){.md-hidden{display:none;}}
+
+/* desktop nav‑links container */
+.navbar-container .nav-links{display:none;}
+@media (min-width:768px){
+  .navbar-container .nav-links{
+    display:flex;flex-direction:row;gap:.75rem;flex-wrap:wrap;justify-content:center;
+  }
+}
+@media (min-width:1024px){.navbar-container .nav-links{gap:1rem;flex-wrap:nowrap;}}
+@media (min-width:1200px){.navbar-container .nav-links{gap:2rem;}}
+
+/* logo */
+.navbar-container .nav-logo{
+  max-height:4rem;
+  width:auto;
+  transition:transform .3s;
+  cursor:url('/images/cursor.png') 0 0,auto !important;
+}
+@media (min-width:768px) and (max-width:1023px){.navbar-container .nav-logo{max-height:3.5rem;}}
+.navbar-container .nav-logo:hover{transform:scale(1.05);}
+.navbar-container .mobile-nav.visible ~ nav .nav-center .nav-logo{display:none;}
+
+/* contact button */
+.navbar-container .nav-contact{
+  background-color:var(--clr-brand-yellow);
+  padding:.75rem 1.25rem;
+  font-weight:700;
+  color:black;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  border-radius:9999px;
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),
+             0 4px 6px -2px rgba(0,0,0,.05);
+  transition:all .3s;
+  white-space:nowrap;
+}
+@media (min-width:1024px){.navbar-container .nav-contact{padding:.75rem 1.5rem;}}
+.navbar-container .nav-contact:hover{
+  background-color:var(--clr-brand-cream);
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),
+             0 4px 6px -2px rgba(0,0,0,.05);
+  transform:scale(1.1);
+}
+
+/* social icons */
+.navbar-container .social-links{display:flex;gap:1rem;cursor:url('/images/cursor.png') 0 0,auto !important;}
+@media (min-width:1024px){.navbar-container .social-links{gap:1.5rem;}}
+
+.navbar-container .social-link img{
+  height:1.75rem;width:1.75rem;border-radius:50%;transition:transform .3s;
+  box-shadow:0 10px 15px -3px rgba(0,0,0,.1),
+             0 4px 6px -2px rgba(0,0,0,.05);
+}
+@media (min-width:1024px){.navbar-container .social-link img{height:2rem;width:2rem;}}
+.navbar-container .social-link img:hover{
+  transform:scale(1.25);
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1),
+             0 10px 10px -5px rgba(0,0,0,.04);
+}
+
+/* desktop nav action wrapper */
+.navbar-container .desktop-nav-actions{display:none;align-items:center;gap:.75rem;}
+@media (min-width:768px){
+  .navbar-container .desktop-nav-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;}
+}
+@media (min-width:1024px){.navbar-container .desktop-nav-actions{gap:1.25rem;flex-wrap:nowrap;}}
+
+/* spacer below fixed header */
+.navbar-spacer{transition:all .3s;}
+.navbar-spacer.scrolled    {height:68px;}
+.navbar-spacer.not-scrolled{height:104px;}
+
+/* ===================================================================== *
+   Mobile menu (unchanged visuals)                                        *
+ * ===================================================================== */
+.navbar-container .menu-backdrop{
+  position:fixed;inset:0;
+  background-color:rgba(0,0,0,.5);
+  z-index:95;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .3s,visibility .3s;
+}
+.navbar-container .menu-backdrop.visible{opacity:1;visibility:visible;pointer-events:auto;}
+@media (min-width:768px){.navbar-container .menu-backdrop{display:none;}}
+
+.navbar-container .mobile-nav{
+  position:fixed;top:0;inset-inline-start:0;
+  height:100%;width:85%;max-width:20rem;
+  background-color:var(--clr-brand-cream);opacity:.95;
+  z-index:100;
+  box-shadow:0 20px 25px -5px rgba(0,0,0,.1),
+             0 10px 10px -5px rgba(0,0,0,.04);
+  transform:translateX(-100%);
+  transition:transform .3s ease-in-out;
+  overflow-y:auto;
+  padding-bottom:2rem;
+  display:flex;flex-direction:column;
+}
+.navbar-container .mobile-nav.visible{transform:translateX(0);}
+@media (min-width:768px){.navbar-container .mobile-nav{display:none;}}
+
+.navbar-container .mobile-nav-safe-area{height:max(2rem,env(safe-area-inset-top));background:#F0F0EA;}
+
+.navbar-container .mobile-nav-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;border-bottom:1px solid #D1D5DB;
+}
+.navbar-container .mobile-nav-close{background:transparent;border:none;padding:.5rem;color:black;}
+.navbar-container .mobile-nav-logo{height:3rem;width:auto;display:block;margin:0 auto;}
+
+.navbar-container .mobile-nav-items{
+  display:flex;flex-direction:column;width:100%;padding:0 1.5rem;
+  gap:1rem;margin-block:2rem;
+}
+.navbar-container .mobile-nav-link{
+  display:block;width:100%;background-color:var(--clr-brand-yellow);
+  padding:.875rem 0;font-weight:700;text-transform:uppercase;text-align:center;
+  border-radius:9999px;transition:all .3s;text-decoration:none;color:black;
+}
+.navbar-container .mobile-nav-link:hover{background:#FFE44D;color:black;transform:scale(1.05);}
+
+.navbar-container .mobile-contact-wrapper{margin-top:auto;margin-bottom:2rem;width:100%;padding:0 1rem;}
+.navbar-container .mobile-contact-btn{
+  display:block;width:100%;background-color:var(--clr-brand-yellow);
+  padding:.875rem 0;font-weight:700;text-transform:uppercase;text-align:center;
+  border-radius:9999px;transition:all .3s;color:black;text-decoration:none;
+}
+.navbar-container .mobile-contact-btn:hover{background:#FFE44D;transform:scale(1.05);}
+
+.navbar-container .mobile-social-links{display:flex;justify-content:center;gap:2rem;margin-bottom:2.5rem;}
+.navbar-container .mobile-social-link img{height:2.5rem;width:2.5rem;border-radius:50%;transition:transform .3s;}
+.navbar-container .mobile-social-link img:hover{transform:scale(1.1);}
+
+/* ===================================================================== *
+   Break‑points                                                          *
+ * ===================================================================== */
+
+/* ---------- phones ≤ 767 px ---------- */
+@media (max-width:767px){
+  .navbar-container .nav-links.hidden{display:none !important;}
+  .navbar-container .mobile-nav{height:100vh;height:calc(100vh - env(safe-area-inset-bottom));}
+}
+
+/* ---------- iPad‑mini 768‑834 px (forced mobile) ---------- */
+@media (min-width:768px) and (max-width:834px){
+  /* show hamburger / hide desktop */
+  .navbar-container .menu-toggle,
+  .md-hidden{display:block !important;}
+
+  .navbar-container .nav-links,
+  .navbar-container .desktop-nav-actions{display:none !important;}
+
+  /* re‑enable drawer & backdrop */
+  .navbar-container .mobile-nav,
+  .navbar-container .menu-backdrop{display:flex !important;}
+}
+
+/* desktop ≥ 835 px – inherited from base rules, nothing extra needed */
+
+/* ===================================================================== *
+   iOS safe‑area padding fix                                             *
+ * ===================================================================== */
+@supports (padding:max(0px)){
+  .navbar-spacer.scrolled    {height:68px;padding-bottom:env(safe-area-inset-top);}
+  .navbar-spacer.not-scrolled{height:104px;padding-bottom:env(safe-area-inset-top);}
+}

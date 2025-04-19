@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@import './fonts.css';
+@import './base.css';
+@import './aboutus.css';
+@import './amenities.css';
+@import './whatsapp.css';
+@import './events.css';
+@import './layout.css';
+@import './utilities.css';
+@import './announcement-bar.css';
+@import './navbar.css';
+@import './hero-section.css';
+@import './contact.css';
+@import './reviews.css';
+@import './gallery.css';
+@import './popup.css';

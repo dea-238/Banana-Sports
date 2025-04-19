@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { reviews } from "../constants/index";
 
 const Reviews = () => {
-  // Animation variants - grouped by functionality
   const animations = {
     container: {
       hidden: { opacity: 0 },
@@ -97,69 +96,46 @@ const Reviews = () => {
     }
   };
 
-  // Custom CSS for the glow effect
-  const glowEffectCSS = `
-    @keyframes intenseYellowGlow {
-      0% { box-shadow: 0 0 10px rgba(255, 223, 0, 0.5); }
-      50% { box-shadow: 0 0 18px 8px rgba(255, 215, 0, 0.7); }
-      100% { box-shadow: 0 0 10px rgba(255, 223, 0, 0.5); }
-    }
-    .yellow-glow-effect {
-      animation: intenseYellowGlow 4s infinite alternate;
-      border-radius: 50%;
-      width: 120%;
-      height: 120%;
-      position: absolute;
-      top: -10%;
-      left: -10%;
-      z-index: 5;
-    }
-  `;
 
-  // Reusable ReviewCard component
   const ReviewCard = ({ review, index }) => (
     <motion.div
       key={review.id}
       variants={animations.review}
       whileHover="hover"
-      className={`flex flex-col items-center w-full min-w-0 ${
-        index % 2 === 0 ? "sm:mb-16" : "sm:mt-16"
+      className={`review-card ${
+        index % 2 === 0 ? "review-card-even" : "review-card-odd"
       }`}>
-      <div className="relative w-24 h-24 md:w-32 md:h-32 mb-4 flex-shrink-0">
-        {/* Yellow Glowing Effect */}
-        <div className="absolute inset-0 w-full h-full rounded-full yellow-glow-effect"></div>
-        
-        {/* Image */}
+      <div className="avatar-container">
+        <div className="avatar-glow"></div>
+
         <motion.div
           variants={animations.image}
-          className="w-full h-full rounded-full overflow-hidden shadow-lg relative z-10">
+          className="avatar-wrapper">
           <img
             src={review.image}
             alt={review.author}
-            className="w-full h-full object-cover rounded-full"
+            className="avatar-image"
             loading="lazy"/>
         </motion.div>
       </div>
       
-      {/* Author info */}
       <motion.p
         variants={animations.text}
-        className="mt-3 text-lg font-medium text-gray-500 break-words">
+        className="author-name">
         {review.author}
       </motion.p>
       
       <motion.p
         variants={animations.text}
-        className="text-sm text-gray-500 break-words">
+        className="author-role">
         {review.role}
       </motion.p>
       
-      {/* Review text */}
       <motion.p
         variants={animations.reviewText}
         initial="hidden"
         whileInView="visible"
-        className="mt-4 text-base px-4 py-3 rounded-md text-center leading-relaxed break-words">
+        className="review-text">
         <motion.span
           variants={animations.textSpan}
           initial="hidden"
@@ -171,28 +147,27 @@ const Reviews = () => {
   );
 
   return (
-    <section className="bg-white py-16 pb-0 px-4 text-center overflow-hidden">
+    <section className="reviews-section">
       <motion.div
         variants={animations.header}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: false, amount: 0.1 }}
-        className="w-full max-w-6xl mx-auto">
+        className="reviews-container">
         <motion.div
           variants={animations.container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+          className="reviews-grid"
         >
           {reviews.map((review, index) => (
             <ReviewCard key={review.id} review={review} index={index} />
           ))}
         </motion.div>
       </motion.div>
-      
-      <style>{glowEffectCSS}</style>
     </section>
   );
 };
+
 export default Reviews;
