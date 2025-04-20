@@ -1,23 +1,15 @@
 :root {
-  --yellow: #FFD900;
+  --yellow: #FFC600;
 }
 
 /* —— Base Gallery Styles —— */
 .gallery-section {
   position: relative;
   background-color: #F8F8F5;
-  padding: 2rem 0;
+  padding: 1.5rem 1rem;
   overflow: hidden;
   width: 100%;
   text-align: center;
-}
-
-.gallery-container {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0 1rem;
-  position: relative;
-  z-index: 10;
 }
 
 .gallery-title {
@@ -30,16 +22,16 @@
   margin-bottom: 1.5rem;
   display: inline-block;
   position: relative;
-  scroll-margin-top: 120px;
 }
 
 .gallery-display {
   position: relative;
-  height: 28rem; 
+  height: 28rem; /* ↑ increased height for small screens */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
+  max-width: 80rem;
 }
 
 .gallery-card {
@@ -62,10 +54,10 @@
   width: 14rem;   /* ↑ from 12rem */
   height: 14rem;  /* ↑ from 12rem */
   z-index: 20;
-  box-shadow: 0 0 15px 5px rgba(255, 217, 0, 0.6);
+  box-shadow: 0 0 15px 5px rgba(255, 198, 0, 0.6);
 }
 .gallery-card-center:hover {
-  box-shadow: 0 0 20px 8px rgba(255, 217, 0, 0.8);
+  box-shadow: 0 0 20px 8px rgba(255, 198, 0, 0.8);
   transform: scale(1.05);
 }
 
@@ -154,7 +146,7 @@
 .gallery-dot-active {
   background-color: var(--yellow);
   width: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(255, 217, 0, 0.5);
+  box-shadow: 0 4px 6px -1px rgba(255, 198, 0, 0.5);
 }
 
 /* —— Modal Styles —— */
@@ -262,9 +254,6 @@
   .gallery-section {
     padding: 2rem 1.5rem;
   }
-  .gallery-container {
-    padding: 0 1.5rem;
-  }
   .gallery-display {
     height: 26rem;
   }
@@ -309,9 +298,6 @@
   .gallery-section {
     padding: 2.5rem 2rem;
   }
-  .gallery-container {
-    padding: 0 2rem;
-  }
   .gallery-display {
     height: 20rem;
   }
@@ -346,10 +332,7 @@
 
 @media (min-width: 1024px) {
   .gallery-section {
-    padding: 3rem 5rem;
-  }
-  .gallery-container {
-    padding: 0 3rem;
+    padding: 3rem 2rem;
   }
   .gallery-card-center {
     width: 16rem;
@@ -378,15 +361,6 @@
   }
   .gallery-modal-content {
     max-height: calc(100vh - 160px);
-  }
-}
-
-@media (max-width: 360px) {
-  .gallery-section {
-    padding: 1.5rem 0.75rem;
-  }
-  .gallery-container {
-    padding: 0 0.75rem;
   }
 }
 
