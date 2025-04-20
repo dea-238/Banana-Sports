@@ -1,29 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { motion } from "framer-motion";
 import { EventImages, HOST } from "../constants/index";
+import "../styles/Events.css";
 
 const SlideNavButton = ({ direction, onClick }) => {
   const Icon = direction === "left" ? FaArrowLeft : FaArrowRight;
-  const buttonClass = direction === "left" ? "events-nav-button-left" : "events-nav-button-right";
   
   return (
-    <button
+    <motion.button
+      initial={{ opacity: 0, x: direction === "left" ? 10 : -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      whileHover={{ scale: 1.1 }}
       onClick={onClick}
-      className={`events-nav-button ${buttonClass}`}
+      className={`slide-nav-button ${direction}`}
     >
-      <Icon className="events-nav-icon" />
-    </button>
+      <Icon size={16} className="icon-small" />
+      <Icon size={18} className="icon-large" />
+    </motion.button>
   );
 };
 
 const SlideIndicators = ({ images, currentIndex, goToSlide }) => {
   return (
-    <div className="events-indicators">
+    <div className="slide-indicators">
       {images.map((_, index) => (
         <button
           key={index}
           onClick={() => goToSlide(index)}
-          className={`events-indicator ${index === currentIndex ? "events-indicator-active" : ""}`}
+          className={`indicator ${index === currentIndex ? "active" : ""}`}
           aria-label={`Go to slide ${index + 1}`}
         ></button>
       ))}
@@ -33,34 +38,32 @@ const SlideIndicators = ({ images, currentIndex, goToSlide }) => {
 
 const BackgroundDecorations = () => {
   return (
-    <div className="events-decoration">
-      <div className="events-decoration-circle-1"></div>
-      <div className="events-decoration-circle-2"></div>
-      <div className="events-decoration-circle-3"></div>
+    <div className="background-decorations">
+      <div className="decoration decoration-1"></div>
+      <div className="decoration decoration-2"></div>
+      <div className="decoration decoration-3"></div>
     </div>
   );
 };
 
 const EventContent = () => {
   return (
-    <div className="events-content-wrap">
-      <h3 className="events-subtitle">
+    <div className="event-content">
+      <h3 className="event-subtitle">
         {HOST.SUBTITLE.split(" ").map((word, index) => (
           index === HOST.SUBTITLE.split(" ").indexOf("EVENT") 
-            ? <span key={index} className="events-subtitle-highlight">{word} </span> 
+            ? <span key={index} className="highlight">{word} </span> 
             : <span key={index}>{word} </span>
         ))}
       </h3>
 
-      <p className="events-description">
+      <p className="event-description">
         {HOST.DESCRIPTION}
       </p>
-      <div className="events-cta">
-        <a 
-          href="#contact" 
-          className="events-button">
-          <span className="events-button-text">{HOST.BUTTON_TEXT}</span>
-          <span className="events-button-overlay"></span>
+      <div className="event-cta">
+        <a href="#contact" className="cta-button">
+          <span className="button-text">{HOST.BUTTON_TEXT}</span>
+          <span className="button-overlay"></span>
         </a>
       </div>
     </div>
@@ -70,25 +73,31 @@ const EventContent = () => {
 const ImageSlider = ({ images, currentIndex, handlePrev, handleNext, goToSlide, setIsHovering }) => {
   return (
     <div 
-      className="events-slider-container"
+      className="image-slider"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className="events-slider-background">
+      <div className="slider-background">
         {images.map((img, index) => (
-          <div
+          <motion.div
             key={index}
-            className="events-slider-image"
-            style={{
+            className="slide"
+            initial={false}
+            animate={{
               opacity: index === currentIndex ? 1 : 0,
               zIndex: index === currentIndex ? 1 : 0
+            }}
+            transition={{
+              opacity: { duration: 0.7, ease: "easeInOut" },
+              zIndex: { delay: index === currentIndex ? 0 : 0.7 }
             }}
           >
             <img
               src={img}
               alt={`Event space ${index + 1}`}
+              className="slide-image"
             />
-          </div>
+          </motion.div>
         ))}
       </div>
       
@@ -211,23 +220,37 @@ const Events = ({ id }) => {
       <BackgroundDecorations />
       
       <div className="events-container">
-        <div className="events-heading">
-          <h2 
+        <div className="events-heading-container">
+          <motion.h2 
             ref={headingRef}
-            className="events-title events-fade-in">
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="events-heading">
             {HOST.TITLE}
-          </h2>
+          </motion.h2>
         </div>
         
-        <div className="events-card events-slide-up">
-          <div className="events-card-inner">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="events-card-wrapper">
+          <div className="events-card">
             <div className="events-card-content">
-              <div className="events-content events-slide-in-left">
+              <motion.div 
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="events-info-section">
                 <EventContent />
-              </div>
+              </motion.div>
               
-              <div 
-                className="events-slider events-slide-in-right"
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="events-slider-section"
                 ref={sliderRef}>
                 <ImageSlider 
                   images={EventImages}
@@ -237,10 +260,10 @@ const Events = ({ id }) => {
                   goToSlide={goToSlide}
                   setIsHovering={setIsHovering}
                 />
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

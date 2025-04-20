@@ -1,11 +1,11 @@
 /* ───────── Hero Section Styles ───────── */
 .hero-section{
   position:relative;
-  height:clamp(500px,90vh,1000px);
+  height:clamp(500px,95vh,1000px);
   display:flex;
   align-items:center;
   justify-content:flex-start;
-  padding-inline:1rem;          /* logical — RTL‑safe */
+  padding-inline:1rem;        
   overflow:hidden;
   width:100%;
 }
@@ -23,7 +23,7 @@
 .hero-content{
   position:relative;z-index:10;color:#fff;
   width:100%;max-width:20rem;
-  text-align:start;             /* logical */
+  text-align:start;             
   padding-inline:1rem;
 }
 

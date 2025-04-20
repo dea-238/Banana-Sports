@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { highlightsSlides } from "../constants";
 import gsap from "gsap";
 
-const SLIDE_INTERVAL = 3000;   // ms
+const SLIDE_INTERVAL = 3000;  
 
 export default function Hero({ id }) {
   const [current, setCurrent] = useState(0);

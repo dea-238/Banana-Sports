@@ -77,7 +77,7 @@ export const aboutus = {
     aboutHeading: "ABOUT US",
     aboutDescription: `
       Welcome to Banana Sports—where top-notch facilities meet unbeatable energy!
-      Whether you’re here to train seriously, compete fiercely, or just have fun, our space is built for all athletes.
+      Join weekly tournaments and community mixers, or choose from flexible membership and drop‑ins that fit your schedule. 
       With great vibes, friendly faces, and nonstop action, every visit is bananas!
     `,
 
@@ -122,7 +122,7 @@ export const AMENITIES = {
 
 export const HOST = {
   TITLE: "EVENTS",
-  SUBTITLE: "HOST AN EVENT WITH US",
+  SUBTITLE: "HOST AN EVENT",
   DESCRIPTION: "Looking for the perfect venue to host your next event? Partner with us for a fun and memorable experience. Let's go Bananas!",
   BUTTON_TEXT: "Contact us today",
 };

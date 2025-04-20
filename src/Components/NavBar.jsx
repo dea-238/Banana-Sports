@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
-import { Menu, X }             from "lucide-react";
+import { Menu, X }               from "lucide-react";
 import { navLinks, socialLinks } from "../constants";
 import { BSLOGO }                from "../utils";
 
-const BREAKPOINT_DESKTOP = 835;  
+const BREAKPOINT_DESKTOP = 835;
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [menuOpen,  setMenuOpen ]  = useState(false);
+  const [menuOpen, setMenuOpen]  = useState(false);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
     const onResize = () => {
       if (window.innerWidth >= BREAKPOINT_DESKTOP && menuOpen) {
-        setMenuOpen(false);            
+        setMenuOpen(false);
       }
     };
 
-    onScroll();  onResize();          
+    onScroll(); onResize();
     document.body.style.overflow = menuOpen ? "hidden" : "";
 
     window.addEventListener("scroll",  onScroll);
@@ -34,7 +34,7 @@ export default function Navbar() {
     {
       id: "location",
       name: "LOCATION",
-      href: "https://www.google.com/maps/dir//29%2F8,+Mullur+Rd,+off+Sarjapur+-+Marathahalli+Road,+Carmelam+Post,+Bengaluru,+Karnataka+560035/@12.9048034,77.6405144,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3bae13a2a9dab9b5:0x5019ea5d5e3bc95b!2m2!1d77.7229163!2d12.9048163?entry=ttu",
+      href: "https://www.google.com/maps/dir//29%2F8,+Mullur+Rd,+off+Sarjapur+-+Marathahalli+Road,+Carmelam+Post,+Bengaluru,+Karnataka+560035",
       external: true,
     },
   ];
@@ -53,18 +53,17 @@ export default function Navbar() {
                 aria-label="Toggle menu"
                 aria-expanded={menuOpen}
               >
-                {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                {menuOpen ? <X size={24}/> : <Menu size={24}/>}
               </button>
             </div>
-
             <div className="nav-links hidden md:flex">
               {allNavLinks.map(link => (
                 <a
                   key={link.id}
                   href={link.external ? link.href : `#${link.id}`}
                   className="nav-link"
-                  target={link.external ? "_blank" : ""}
-                  rel={link.external ? "noopener noreferrer" : ""}
+                  target={link.external ? "_blank" : undefined}
+                  rel={link.external ? "noopener noreferrer" : undefined}
                 >
                   {link.name}
                 </a>
@@ -74,7 +73,7 @@ export default function Navbar() {
 
           <div className={`nav-section nav-center ${menuOpen ? "md:block hidden" : "block"}`}>
             <a href="#hero" aria-label="Go to homepage">
-              <img src={BSLOGO} alt="Banana Sports" className="nav-logo" />
+              <img src={BSLOGO} alt="Banana Sports" className="nav-logo"/>
             </a>
           </div>
 
@@ -126,8 +125,8 @@ export default function Navbar() {
               href={link.external ? link.href : `#${link.id}`}
               className="mobile-nav-link"
               onClick={closeMenu}
-              target={link.external ? "_blank" : ""}
-              rel={link.external ? "noopener noreferrer" : ""}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
             >
               {link.name}
             </a>

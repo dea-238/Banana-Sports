@@ -1,33 +1,31 @@
 .amenities-section {
   background-color: #fff;
   color: #000;
-  padding: 1rem 1rem;
+  padding: 2rem 0;
   overflow: hidden;
 }
 
-.amenities-container {
+.amenities-section .amenities-container {
   max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  z-index: 10;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 @media (min-width: 640px) {
-  .amenities-section {
-    padding: 1.5rem 1.5rem;
+  .amenities-section .amenities-container {
+    padding: 0 1.5rem;
   }
 }
 
 @media (min-width: 768px) {
-  .amenities-section {
-    padding: 2rem 2rem;
+  .amenities-section .amenities-container {
+    padding: 0 2rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .amenities-section {
-    padding: 2rem 5rem;
+  .amenities-section .amenities-container {
+    padding: 0 3rem;
   }
 }
 
@@ -242,7 +240,10 @@
 
 @media (min-width: 640px) {
   .amenities-section {
-    padding: 3rem 2rem;
+    padding: 2rem 1.5rem;
+  }
+  .amenities-container {
+    padding: 0 1.5rem;
   }
   .amenities-heading {
     margin-bottom: 1.5rem;
@@ -269,7 +270,10 @@
 
 @media (min-width: 768px) {
   .amenities-section {
-    padding: 4rem 3rem;
+    padding: 2.5rem 2rem;
+  }
+  .amenities-container {
+    padding: 0 2rem;
   }
   .amenities-heading {
     margin-bottom: 2rem;
@@ -293,7 +297,10 @@
 
 @media (min-width: 1024px) {
   .amenities-section {
-    padding: 4rem 5rem;
+    padding: 3rem 5rem;
+  }
+  .amenities-container {
+    padding: 0 3rem;
   }
   .amenities-feature-grid {
     gap: 2.5rem;
@@ -303,6 +310,27 @@
   }
 }
 
+@media (max-width: 360px) {
+  .amenities-section {
+    padding: 1.5rem 0.75rem;
+  }
+  .amenities-container {
+    padding: 0 0.75rem;
+  }
+  .amenities-feature-grid {
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .amenities-grid {
+    gap: 0.75rem;
+  }
+  .amenities-item {
+    height: auto;
+    min-height: 10rem;
+    padding: 1.25rem;
+  }
+}
+
 :root {
-  --yellow: #FFC600;
+  --yellow: #FFD900;
 }

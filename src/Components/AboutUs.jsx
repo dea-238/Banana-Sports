@@ -29,7 +29,7 @@ const AboutUs = ({ id }) => {
         </div>
       </div>
       
-      <div className="about-content container">
+      <div className="about-content container mx-auto">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -60,7 +60,7 @@ const AboutUs = ({ id }) => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: false, amount: 0.2 }}
-          className="mission-text-section"
+          className="mission-text-section w-full"
         >
           <h2 className="about-heading">{aboutus.content.missionHeading}</h2>
           <p className="about-paragraph">{aboutus.content.missionDescription}</p>
