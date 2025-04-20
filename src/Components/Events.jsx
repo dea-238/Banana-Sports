@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { EventImages, HOST } from "../constants/index";
-import "../styles/Events.css";
 
 const SlideNavButton = ({ direction, onClick }) => {
   const Icon = direction === "left" ? FaArrowLeft : FaArrowRight;
